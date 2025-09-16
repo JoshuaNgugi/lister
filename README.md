@@ -2,9 +2,7 @@
 
 A simple Flutter appl that displays a list of items. 
 
----
-
-## 📦 Requirements
+## Requirements
 
 Make sure you have the following installed before running the project:
 
@@ -12,8 +10,6 @@ Make sure you have the following installed before running the project:
 - [Dart SDK](https://dart.dev/get-dart) (comes bundled with Flutter)
 - An IDE with Flutter support (e.g., VS Code or Android Studio)
 - An emulator (Android/iOS) or a physical device (preferred)
-
----
 
 ## Running the App
 
