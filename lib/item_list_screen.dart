@@ -36,9 +36,37 @@ class _ItemListScreenState extends State<ItemListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Test App')),
+      appBar: AppBar(
+        leading: const Icon(Icons.menu),
+        title: const Text('Test App'),
+        elevation: 4,
+        shadowColor: Colors.black.withOpacity(0.5),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: _navigateToAddItemScreen,
+              icon: const Icon(Icons.add, size: 18),
+              label: const Text('New'),
+            ),
+          ),
+        ],
+      ),
       body: items.isEmpty
-          ? const Center(child: Text('No items added yet'))
+          ? const Card(
+              child: Center(
+                child: Text(
+                  'No items added. Please press "New" to add an item.',
+                ),
+              ),
+            )
           : ListView.builder(
               itemCount: items.length,
               itemBuilder: (context, index) {
@@ -53,10 +81,6 @@ class _ItemListScreenState extends State<ItemListScreen> {
                 );
               },
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _navigateToAddItemScreen,
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }

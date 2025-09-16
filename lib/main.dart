@@ -20,6 +20,7 @@ class MainAppState extends State<MainApp> {
       title: 'Lister',
       theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: ItemListScreen.routeName,
+      debugShowCheckedModeBanner: false,
       routes: {
         ItemListScreen.routeName: (context) => const ItemListScreen(),
         AddItemScreen.routeName: (context) => const AddItemScreen(),
