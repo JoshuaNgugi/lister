@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lister/model/item.dart';
 
 class AddItemScreen extends StatefulWidget {
   const AddItemScreen({super.key});
@@ -10,10 +11,29 @@ class AddItemScreen extends StatefulWidget {
 }
 
 class _AddItemScreenState extends State<AddItemScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      final newItem = Item(
+        title: _titleController.text.trim(),
+        description: _descriptionController.text.trim(),
+      );
+      Navigator.pop(context, newItem);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Item'),
@@ -64,6 +84,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
+                        controller: _titleController,
                         decoration: InputDecoration(
                           hintText: 'Enter a title for the item',
                           border: OutlineInputBorder(
@@ -88,6 +109,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
+                        controller: _descriptionController,
                         decoration: InputDecoration(
                           hintText: 'Add description',
                           border: OutlineInputBorder(
@@ -125,11 +147,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Navigator.pop(context);
-                      }
-                    },
+                    onPressed: _submitForm,
                     child: const Text('Add Item'),
                   ),
                 ],

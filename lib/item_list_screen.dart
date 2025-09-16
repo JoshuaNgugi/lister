@@ -67,16 +67,30 @@ class _ItemListScreenState extends State<ItemListScreen> {
                 ),
               ),
             )
-          : ListView.builder(
+          : ListView.separated(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               itemCount: items.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 12),
               itemBuilder: (context, index) {
                 final item = items[index];
-                return ListTile(
-                  title: Text(item.title),
-                  subtitle: Text(item.description),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () => _deleteItem(index),
+                return Card(
+                  child: ListTile(
+                    title: Text(
+                      item.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
+                    ),
+                    subtitle: Text(
+                      item.description,
+                      style: TextStyle(fontSize: 14, color: Colors.black),
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () => _deleteItem(index),
+                    ),
                   ),
                 );
               },
