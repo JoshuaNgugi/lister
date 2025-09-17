@@ -24,6 +24,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
     setState(() {
       items.removeAt(index);
     });
+    Navigator.pop(context); // Close the dialog
   }
 
   Future<void> _showDeleteConfirmationDialog(int index) async {
@@ -31,13 +32,15 @@ class _ItemListScreenState extends State<ItemListScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Delete Item'),
-        content: const Text('Are you sure you want to delete this item? This action cannot be undone.'),
+        content: const Text(
+          'Are you sure you want to delete this item? This action cannot be undone.',
+        ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
+          OutlinedButton(
+            onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
-          TextButton(
+          ElevatedButton(
             onPressed: () => _deleteItem(index),
             child: const Text('Delete', style: TextStyle(color: Colors.red)),
           ),
