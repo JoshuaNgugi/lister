@@ -26,6 +26,30 @@ class _ItemListScreenState extends State<ItemListScreen> {
     });
   }
 
+  Future<void> _showDeleteConfirmationDialog(int index) async {
+    final shouldDelete = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Item'),
+        content: const Text('Are you sure you want to delete this item? This action cannot be undone.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => _deleteItem(index),
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+
+    if (shouldDelete == true) {
+      _deleteItem(index);
+    }
+  }
+
   Future<void> _navigateToAddItemScreen() async {
     final newItem = await Navigator.pushNamed(context, AddItemScreen.routeName);
     if (newItem != null && newItem is Item) {
@@ -89,7 +113,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
                     ),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: () => _deleteItem(index),
+                      onPressed: () => _showDeleteConfirmationDialog(index),
                     ),
                   ),
                 );
